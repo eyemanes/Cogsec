@@ -12,7 +12,7 @@ const Navigation = ({ activeSection, onSectionChange }) => {
     <nav className="nav-container">
       <div className="nav">
         <div className="nav-logo">
-          <img src="/logo.png" alt="Cogsec Logo" style={{ height: '40px', marginRight: '10px', verticalAlign: 'middle' }} />
+          <img src="/Logo.png" alt="Cogsec Logo" style={{ height: '40px', marginRight: '10px', verticalAlign: 'middle' }} />
           COGSEC
         </div>
         <ul className="nav-menu">

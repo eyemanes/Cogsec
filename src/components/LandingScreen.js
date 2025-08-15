@@ -5,7 +5,7 @@ const LandingScreen = () => {
   return (
     <div className="landing-screen">
       <div className="logo">
-        <img src="/logo.png" alt="Cogsec Logo" style={{ height: '80px', marginBottom: '1rem' }} />
+        <img src="/Logo.png" alt="Cogsec Logo" style={{ height: '80px', marginBottom: '1rem' }} />
       </div>
       <div className="tagline">SECURE YOUR MIND</div>
       
