@@ -101,26 +101,10 @@ const StorySection = () => {
       
       {/* Disclaimer Section */}
       <div className="disclaimer-section glass-card">
-        <h3>⚠️ IMPORTANT DISCLAIMER</h3>
+        <h3>⚠️ DISCLAIMER</h3>
         <div className="disclaimer-content">
           <p>
-            <strong>FICTIONAL CONTENT:</strong> This entire narrative, including all references to "Cogsec," 
-            "AI detection protocols," "cognitive security," and "neural firewalls" is completely fictional 
-            and created for entertainment purposes only.
-          </p>
-          <p>
-            <strong>MEME TOKEN:</strong> COGSEC is a meme cryptocurrency token created for fun and community 
-            engagement. This token has <strong>no intrinsic value</strong>, provides <strong>no utility</strong>, 
-            and should not be considered an investment opportunity.
-          </p>
-          <p>
-            <strong>NOT FINANCIAL ADVICE:</strong> Nothing on this website constitutes financial, investment, 
-            or economic advice. Cryptocurrency investments are highly speculative and risky. 
-            <strong>You may lose all invested funds.</strong>
-          </p>
-          <p>
-            <strong>FOR ENTERTAINMENT ONLY:</strong> This project is intended purely for entertainment, 
-            artistic expression, and community building within the cryptocurrency space.
+            <strong>FICTIONAL CONTENT:</strong> This entire narrative is fictional content created for entertainment purposes only.
           </p>
         </div>
         <div className="disclaimer-signature">
