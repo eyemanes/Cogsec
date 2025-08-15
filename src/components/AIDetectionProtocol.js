@@ -9,6 +9,8 @@ const AIDetectionProtocol = () => {
   const [startTime, setStartTime] = useState(null);
   const [mouseMovements, setMouseMovements] = useState([]);
   const [timerTest, setTimerTest] = useState({ counting: false, startTime: null });
+  const [isReturningUser, setIsReturningUser] = useState(false);
+  const [cachedResult, setCachedResult] = useState(null);
 
   const phases = [
     'initialize',
@@ -19,6 +21,36 @@ const AIDetectionProtocol = () => {
     'temporal-reasoning',
     'analysis'
   ];
+
+  // Check for cached results on component mount
+  useEffect(() => {
+    try {
+      const cachedData = localStorage.getItem('cogsec_verification_result');
+      const lastTestDate = localStorage.getItem('cogsec_last_test_date');
+      
+      if (cachedData && lastTestDate) {
+        const daysSinceTest = (Date.now() - parseInt(lastTestDate)) / (1000 * 60 * 60 * 24);
+        
+        // Cache expires after 7 days for security
+        if (daysSinceTest < 7) {
+          const parsedResult = JSON.parse(cachedData);
+          setIsReturningUser(true);
+          setCachedResult(parsedResult);
+          setCurrentPhase('cached-result');
+          return;
+        } else {
+          // Clear expired cache
+          localStorage.removeItem('cogsec_verification_result');
+          localStorage.removeItem('cogsec_last_test_date');
+        }
+      }
+    } catch (error) {
+      console.warn('Error reading cache:', error);
+      // Clear corrupted cache
+      localStorage.removeItem('cogsec_verification_result');
+      localStorage.removeItem('cogsec_last_test_date');
+    }
+  }, []);
 
   const testData = {
     'visual-perception': {
@@ -255,15 +287,27 @@ const AIDetectionProtocol = () => {
       accessStatus = "DENIED";
     }
     
-    setFinalScore({
+    const result = {
       score: humanityScore,
       classification,
       threatLevel,
       accessStatus,
       indicators,
       totalTests: Object.keys(responses).length,
-      totalTime: Object.values(timeSpent).reduce((a, b) => a + b, 0)
-    });
+      totalTime: Object.values(timeSpent).reduce((a, b) => a + b, 0),
+      testDate: Date.now(),
+      isFirstTime: true
+    };
+    
+    // Save to cache
+    try {
+      localStorage.setItem('cogsec_verification_result', JSON.stringify(result));
+      localStorage.setItem('cogsec_last_test_date', Date.now().toString());
+    } catch (error) {
+      console.warn('Could not save verification result to cache:', error);
+    }
+    
+    setFinalScore(result);
   };
 
   const startTimer = () => {
@@ -279,7 +323,151 @@ const AIDetectionProtocol = () => {
     }
   };
 
-  const renderTestPhase = () => {
+  const renderCachedResult = () => {
+    if (!cachedResult) return null;
+
+    const daysSinceTest = Math.floor((Date.now() - cachedResult.testDate) / (1000 * 60 * 60 * 24));
+    const timeAgo = daysSinceTest === 0 ? 'today' : 
+                   daysSinceTest === 1 ? '1 day ago' : 
+                   `${daysSinceTest} days ago`;
+
+    return (
+      <div className="cached-results">
+        <div className="returning-user-header">
+          <h2>🔄 WELCOME BACK - VERIFICATION FOUND</h2>
+          <div className="cache-info">
+            <span className="last-test">Last verification: {timeAgo}</span>
+            <span className="cache-expires">Cache expires in {7 - daysSinceTest} days</span>
+          </div>
+        </div>
+        
+        <div className="cached-score-display glass-card">
+          <div className="verification-status">
+            <div className="status-icon">
+              {cachedResult.accessStatus === 'GRANTED' ? '🟢' : 
+               cachedResult.accessStatus === 'CAUTION' ? '🟡' : 
+               cachedResult.accessStatus === 'RESTRICTED' ? '🟠' : '🔴'}
+            </div>
+            <div className="status-text">
+              <div className={`classification class-${cachedResult.accessStatus.toLowerCase()}`}>
+                {cachedResult.classification}
+              </div>
+              <div className="score-display">
+                <span className={`score score-${cachedResult.accessStatus.toLowerCase()}`}>
+                  {cachedResult.score}/100
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="access-status-cached">
+            {cachedResult.accessStatus === 'GRANTED' ? (
+              <div className="access-granted">
+                🟢 COGNITIVE PATTERNS VERIFIED - ACCESS MAINTAINED
+              </div>
+            ) : cachedResult.accessStatus === 'CAUTION' ? (
+              <div className="access-caution">
+                🟡 PROCEED WITH CAUTION - PREVIOUS VERIFICATION UNCERTAIN
+              </div>
+            ) : cachedResult.accessStatus === 'RESTRICTED' ? (
+              <div className="access-restricted">
+                🟠 RESTRICTED ACCESS - SUSPICIOUS PATTERNS DETECTED
+              </div>
+            ) : (
+              <div className="access-denied">
+                🔴 ACCESS DENIED - AI INTRUSION DETECTED
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="cache-actions">
+          <button 
+            className="continue-btn"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setCurrentPhase('analysis');
+            }}
+          >
+            📊 VIEW DETAILED ANALYSIS
+          </button>
+          
+          <button 
+            className="new-test-btn"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              // Clear cache and restart test
+              localStorage.removeItem('cogsec_verification_result');
+              localStorage.removeItem('cogsec_last_test_date');
+              setIsReturningUser(false);
+              setCachedResult(null);
+              setCurrentPhase('initialize');
+              // Reset all state
+              setResponses({});
+              setTimeSpent({});
+              setFinalScore(null);
+              setMouseMovements([]);
+            }}
+          >
+            🔄 RUN NEW VERIFICATION
+          </button>
+        </div>
+
+        {/* Contact Information for cached users */}
+        <div className="contact-info">
+          <div className="crypto-section">
+            <h4>🔐 SECURE COMMUNICATIONS</h4>
+            <div className="crypto-address">
+              <span className="address-label">CA:</span>
+              <div className="address-container">
+                <span className="address-value">8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4</span>
+                <button 
+                  className="copy-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigator.clipboard.writeText('8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4');
+                    const btn = e.target;
+                    const original = btn.textContent;
+                    btn.textContent = 'COPIED!';
+                    setTimeout(() => btn.textContent = original, 2000);
+                  }}
+                >
+                  📋 COPY
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="social-section">
+            <h4>🌐 NEURAL NETWORK FEEDS</h4>
+            <div className="social-links">
+              <a 
+                href="https://x.com/cogsecsol" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="social-link twitter-profile"
+              >
+                <span className="social-icon">🐦</span>
+                <span>@cogsecsol - Official Profile</span>
+              </a>
+              <a 
+                href="https://x.com/i/communities/1954604922512822518" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="social-link community-link"
+              >
+                <span className="social-icon">👥</span>
+                <span>Join the Cogsec Community</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
     const test = testData[currentPhase];
     if (!test) return null;
 
@@ -308,7 +496,11 @@ const AIDetectionProtocol = () => {
               </p>
               {!timerTest.counting ? (
                 <button 
-                  onClick={startTimer}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    startTimer();
+                  }}
                   className="test-button start-button"
                 >
                   🕐 START COUNTING
@@ -317,7 +509,11 @@ const AIDetectionProtocol = () => {
                 <div className="counting-phase">
                   <div className="counting-indicator">Counting... 🧠</div>
                   <button 
-                    onClick={stopTimer}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      stopTimer();
+                    }}
                     className="test-button stop-button"
                   >
                     ⏹️ STOP (10 seconds passed)
@@ -334,7 +530,9 @@ const AIDetectionProtocol = () => {
                 id="creative-response"
               />
               <button 
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
                   const textarea = document.getElementById('creative-response');
                   if (textarea.value.trim()) {
                     recordResponse(textarea.value, Date.now() - startTime);
@@ -351,7 +549,11 @@ const AIDetectionProtocol = () => {
                 <button
                   key={index}
                   className="option-button"
-                  onClick={() => recordResponse(option, Date.now() - startTime)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    recordResponse(option, Date.now() - startTime);
+                  }}
                 >
                   <span className="option-number">{String.fromCharCode(65 + index)}</span>
                   {option}
@@ -371,52 +573,56 @@ const AIDetectionProtocol = () => {
   };
 
   const renderResults = () => {
-    if (!finalScore) return null;
+    // Use cached result if available and we're showing analysis
+    const result = finalScore || cachedResult;
+    if (!result) return null;
 
     return (
       <div className="results-display">
         <div className="scan-complete">
-          <h2>🛡️ COGNITIVE SECURITY ANALYSIS COMPLETE</h2>
+          <h2>🛡️ COGNITIVE SECURITY ANALYSIS {isReturningUser ? '(CACHED)' : 'COMPLETE'}</h2>
           
           <div className="score-display">
             <div className="humanity-score">
               <span className="label">HUMANITY SCORE:</span>
-              <span className={`score score-${finalScore.accessStatus.toLowerCase()}`}>
-                {finalScore.score}/100
+              <span className={`score score-${result.accessStatus.toLowerCase()}`}>
+                {result.score}/100
               </span>
             </div>
             
             <div className="classification">
               <span className="label">CLASSIFICATION:</span>
-              <span className={`value class-${finalScore.accessStatus.toLowerCase()}`}>
-                {finalScore.classification}
+              <span className={`value class-${result.accessStatus.toLowerCase()}`}>
+                {result.classification}
               </span>
             </div>
             
             <div className="threat-level">
               <span className="label">THREAT LEVEL:</span>
-              <span className={`value threat-${finalScore.threatLevel.toLowerCase()}`}>
-                {finalScore.threatLevel}
+              <span className={`value threat-${result.threatLevel.toLowerCase()}`}>
+                {result.threatLevel}
               </span>
             </div>
           </div>
 
-          <div className="test-stats">
-            <div className="stat">
-              <span>Tests Completed:</span> {finalScore.totalTests}
+          {!isReturningUser && (
+            <div className="test-stats">
+              <div className="stat">
+                <span>Tests Completed:</span> {result.totalTests}
+              </div>
+              <div className="stat">
+                <span>Total Time:</span> {(result.totalTime / 1000).toFixed(1)}s
+              </div>
+              <div className="stat">
+                <span>Mouse Interactions:</span> {mouseMovements.length}
+              </div>
             </div>
-            <div className="stat">
-              <span>Total Time:</span> {(finalScore.totalTime / 1000).toFixed(1)}s
-            </div>
-            <div className="stat">
-              <span>Mouse Interactions:</span> {mouseMovements.length}
-            </div>
-          </div>
+          )}
           
           <div className="analysis-details">
             <h4>🔍 DETAILED ANALYSIS:</h4>
             <div className="indicators">
-              {finalScore.indicators.map((indicator, index) => (
+              {result.indicators.map((indicator, index) => (
                 <div key={index} className={`indicator ${
                   indicator.startsWith('✅') ? 'positive' : 
                   indicator.startsWith('🚨') ? 'alert' : 'warning'
@@ -428,15 +634,15 @@ const AIDetectionProtocol = () => {
           </div>
           
           <div className="access-status">
-            {finalScore.accessStatus === 'GRANTED' ? (
+            {result.accessStatus === 'GRANTED' ? (
               <div className="access-granted">
                 🟢 ACCESS GRANTED - HUMAN COGNITIVE PATTERNS VERIFIED
               </div>
-            ) : finalScore.accessStatus === 'CAUTION' ? (
+            ) : result.accessStatus === 'CAUTION' ? (
               <div className="access-caution">
                 🟡 PROCEED WITH CAUTION - INCONCLUSIVE VERIFICATION
               </div>
-            ) : finalScore.accessStatus === 'RESTRICTED' ? (
+            ) : result.accessStatus === 'RESTRICTED' ? (
               <div className="access-restricted">
                 🟠 ACCESS RESTRICTED - SUSPICIOUS PATTERNS DETECTED
               </div>
@@ -448,7 +654,20 @@ const AIDetectionProtocol = () => {
           </div>
 
           <button 
-            onClick={() => window.location.reload()} 
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              // Clear cache and restart test
+              localStorage.removeItem('cogsec_verification_result');
+              localStorage.removeItem('cogsec_last_test_date');
+              setIsReturningUser(false);
+              setCachedResult(null);
+              setCurrentPhase('initialize');
+              setResponses({});
+              setTimeSpent({});
+              setFinalScore(null);
+              setMouseMovements([]);
+            }}
             className="restart-button"
           >
             🔄 RUN NEW ANALYSIS
@@ -464,9 +683,11 @@ const AIDetectionProtocol = () => {
                   <span className="address-value">8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4</span>
                   <button 
                     className="copy-btn"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
                       navigator.clipboard.writeText('8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4');
-                      const btn = document.querySelector('.copy-btn');
+                      const btn = e.target;
                       const original = btn.textContent;
                       btn.textContent = 'COPIED!';
                       setTimeout(() => btn.textContent = original, 2000);
@@ -530,6 +751,8 @@ const AIDetectionProtocol = () => {
             <div className="progress-text">Establishing secure connection...</div>
           </div>
         </div>
+      ) : currentPhase === 'cached-result' ? (
+        renderCachedResult()
       ) : currentPhase === 'analysis' ? (
         renderResults()
       ) : (
