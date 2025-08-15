@@ -1,5 +1,6 @@
 import React from 'react';
 import './LandingScreen.css';
+import AIDetectionProtocol from './AIDetectionProtocol';
 
 const LandingScreen = () => {
   return (
@@ -10,16 +11,7 @@ const LandingScreen = () => {
       <div className="tagline">SECURE YOUR MIND</div>
       
       <div className="analyzer">
-        <div className="analyzer-header">AI DETECTION PROTOCOL v2.7.1</div>
-        <div className="scan-area">
-          <div className="scan-line"></div>
-          <div className="scan-text">SCANNING NEURAL PATTERNS...</div>
-          <div className="scan-result">
-            STATUS: HUMAN VERIFIED<br/>
-            THREAT LEVEL: MINIMAL<br/>
-            ACCESS GRANTED
-          </div>
-        </div>
+        <AIDetectionProtocol />
       </div>
     </div>
   );
