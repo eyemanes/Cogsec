@@ -10,13 +10,34 @@ import './styles/App.css';
 function App() {
   const [showLanding, setShowLanding] = useState(true);
   const [activeSection, setActiveSection] = useState('story');
+  const [testCompleted, setTestCompleted] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLanding(false);
-    }, 6000);
+    // Check if user has completed test or has cached results
+    const hasCompletedTest = localStorage.getItem('cogsec_verification_result');
+    if (hasCompletedTest) {
+      setTestCompleted(true);
+    }
+  }, []);
 
-    return () => clearTimeout(timer);
+  useEffect(() => {
+    // Only auto-transition if test is completed
+    if (testCompleted) {
+      const timer = setTimeout(() => {
+        setShowLanding(false);
+      }, 3000); // Shorter time since test is done
+      return () => clearTimeout(timer);
+    }
+  }, [testCompleted]);
+
+  // Listen for test completion
+  useEffect(() => {
+    const handleTestComplete = () => {
+      setTestCompleted(true);
+    };
+
+    window.addEventListener('cogsec-test-complete', handleTestComplete);
+    return () => window.removeEventListener('cogsec-test-complete', handleTestComplete);
   }, []);
 
   const handleSectionChange = (section) => {

@@ -44,52 +44,22 @@ const StorySection = () => {
       
       {/* Contact Information Section */}
       <div className="contact-section-main">
-        <div className="contact-grid">
-          <div className="glass-card contact-card">
-            <h3>🔐 SECURE COMMUNICATIONS</h3>
-            <div className="crypto-address">
-              <span className="address-label">CA:</span>
-              <div className="address-container">
-                <span className="address-value">8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4</span>
-                <button 
-                  className="copy-btn"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigator.clipboard.writeText('8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4');
-                    const btn = e.target;
-                    const original = btn.textContent;
-                    btn.textContent = 'COPIED!';
-                    setTimeout(() => btn.textContent = original, 2000);
-                  }}
-                >
-                  📋 COPY
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          <div className="glass-card contact-card">
-            <h3>🌐 NEURAL NETWORK FEEDS</h3>
-            <div className="social-links">
-              <a 
-                href="https://x.com/cogsecsol" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="social-link twitter-profile"
-              >
-                <span className="social-icon">🐦</span>
-                <span>@cogsecsol - Official Profile</span>
-              </a>
-              <a 
-                href="https://x.com/i/communities/1954604922512822518" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="social-link community-link"
-              >
-                <span className="social-icon">👥</span>
-                <span>Join the Cogsec Community</span>
-              </a>
-            </div>
+        <div className="contact-info-compact">
+          <div className="contact-line">
+            <a href="#" onClick={(e) => {
+              e.preventDefault();
+              navigator.clipboard.writeText('8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4');
+              const link = e.target;
+              const original = link.textContent;
+              link.textContent = 'COPIED!';
+              setTimeout(() => link.textContent = original, 2000);
+            }} className="contact-link">CA</a>
+            <span className="separator">|</span>
+            <a href="https://x.com/cogsecsol" target="_blank" rel="noopener noreferrer" className="contact-link">Profile</a>
+            <span className="separator">|</span>
+            <a href="https://x.com/i/communities/1954604922512822518" target="_blank" rel="noopener noreferrer" className="contact-link">Community</a>
+            <span className="separator">|</span>
+            <a href="https://t.me/COGSECSOL" target="_blank" rel="noopener noreferrer" className="contact-link">Telegram</a>
           </div>
         </div>
       </div>

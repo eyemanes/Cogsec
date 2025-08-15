@@ -102,6 +102,44 @@
   margin: 3rem 0;
 }
 
+/* Compact Contact Line */
+.contact-info-compact {
+  text-align: center;
+}
+
+.contact-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+}
+
+.contact-link {
+  color: #00ff41;
+  text-decoration: none;
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.contact-link:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px #00ff41;
+  transform: scale(1.1);
+}
+
+.separator {
+  color: rgba(0, 255, 65, 0.5);
+  font-weight: 300;
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -309,5 +347,15 @@
   .disclaimer-content p {
     padding: 0.75rem;
     font-size: 0.9rem;
+  }
+  
+  .contact-line {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  .contact-link {
+    font-size: 0.8rem;
   }
 }
