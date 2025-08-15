@@ -43,6 +43,20 @@ npm install
 npm start
 ```
 
+### Option 4: Vercel Deployment
+1. **Push to GitHub**: Upload your project to a GitHub repository
+2. **Connect to Vercel**: 
+   - Go to [vercel.com](https://vercel.com) and sign up
+   - Click "New Project" and import your GitHub repository
+   - Vercel will auto-detect it's a React app
+3. **Deploy**: Click "Deploy" - Vercel handles everything automatically
+4. **Custom Domain**: Add your custom domain in Vercel dashboard (optional)
+
+**Vercel Build Settings:**
+- Build Command: `npm run build`
+- Output Directory: `build`
+- Install Command: `npm install`
+
 ## Structure
 
 ```
@@ -96,9 +110,32 @@ Secure communications section featuring the crypto wallet address with copy func
 - HTML5
 - CSS3 (with modern features like backdrop-filter)
 - Vanilla JavaScript
+- React 18
 - Google Fonts (Orbitron)
 - CSS Grid and Flexbox
 - CSS Animations and Keyframes
+- Vercel (deployment ready)
+
+## Deployment
+
+### Quick Deploy to Vercel:
+1. **Push to GitHub**: Upload this project to a GitHub repository
+2. **Connect Vercel**: Go to [vercel.com](https://vercel.com) and import your repo
+3. **Auto-Deploy**: Vercel detects React and deploys automatically
+4. **Live Site**: Your Cogsec site will be live with a `.vercel.app` domain
+
+### Files Included for Deployment:
+- ✅ `vercel.json` - Vercel configuration
+- ✅ `.vercelignore` - Deployment ignore rules
+- ✅ `deploy.sh` / `deploy.bat` - Helper scripts
+- ✅ `DEPLOYMENT.md` - Detailed deployment guide
+
+### Alternative Deployment:
+The project also works with other hosting platforms:
+- **Netlify**: Drag & drop the `build` folder
+- **GitHub Pages**: Enable in repository settings
+- **Firebase Hosting**: `firebase deploy`
+- **Static hosting**: Any web server can serve the built files
 
 ---
 
