@@ -1,1 +1,10 @@
-{\n  \"extends\": [\n    \"react-app\",\n    \"react-app/jest\"\n  ],\n  \"rules\": {\n    \"no-irregular-whitespace\": \"off\",\n    \"no-control-regex\": \"off\"\n  }\n}\n
+{
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "rules": {
+    "no-irregular-whitespace": "off",
+    "no-control-regex": "off"
+  }
+}
