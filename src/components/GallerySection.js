@@ -5,33 +5,33 @@ const GallerySection = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const galleryItems = [
-    { id: 1, title: "Neural Scan 001", type: "scan", status: "classified", image: "/gallery/1.png" },
-    { id: 2, title: "Defense Matrix", type: "system", status: "active", image: "/gallery/2.png" },
-    { id: 3, title: "AI Threat Vector", type: "analysis", status: "warning", image: "/gallery/3.png" },
-    { id: 4, title: "Cognitive Shield", type: "protection", status: "online", image: "/gallery/5.png" },
-    { id: 5, title: "Brain Firewall", type: "security", status: "deployed", image: "/gallery/6.png" },
-    { id: 6, title: "Memory Protection", type: "backup", status: "secure", image: "/gallery/8.png" },
-    { id: 7, title: "Thought Encryption", type: "cipher", status: "encrypted", image: "/gallery/9.png" },
-    { id: 8, title: "Neural Antibody", type: "defense", status: "active", image: "/gallery/10.png" },
-    { id: 9, title: "Mind Fortress", type: "barrier", status: "fortified", image: "/gallery/11.png" },
-    { id: 10, title: "Synaptic Guard", type: "monitor", status: "watching", image: "/gallery/12.png" },
-    { id: 11, title: "Consciousness Lock", type: "security", status: "locked", image: "/gallery/13.png" },
-    { id: 12, title: "Mental Quarantine", type: "isolation", status: "contained", image: "/gallery/14.png" }
+    { id: 1, title: "AI World", type: "intelligence", status: "classified", image: "/gallery/ai-world.png" },
+    { id: 2, title: "AI Threat Vector", type: "analysis", status: "warning", image: "/gallery/ai-threat-vector.png" },
+    { id: 3, title: "Matrix Malware", type: "malware", status: "critical", image: "/gallery/matrix-malware.png" },
+    { id: 4, title: "Cognitive Virus", type: "virus", status: "warning", image: "/gallery/cognitive-virus.png" },
+    { id: 5, title: "Brain Structure", type: "anatomy", status: "secured", image: "/gallery/brain-structure.png" },
+    { id: 6, title: "AI Threat Analyser", type: "scanner", status: "active", image: "/gallery/ai-threat-analyser.png" },
+    { id: 7, title: "Brain Collector", type: "harvester", status: "collecting", image: "/gallery/brain-collector.png" },
+    { id: 8, title: "AI Watchers", type: "surveillance", status: "monitoring", image: "/gallery/ai-watchers.png" },
+    { id: 9, title: "Mind Workers", type: "processing", status: "operational", image: "/gallery/mind-workers.png" },
+    { id: 10, title: "Robotic Manufacture", type: "production", status: "active", image: "/gallery/robotic-manufacture.png" },
+    { id: 11, title: "AI Quantum", type: "quantum", status: "experimental", image: "/gallery/ai-quantum.png" },
+    { id: 12, title: "The Invasion", type: "infiltration", status: "critical", image: "/gallery/the-invasion.png" },
+    { id: 13, title: "Neural Defense", type: "protection", status: "fortified", image: "/gallery/neural-defense.png" }
   ];
 
   const getStatusColor = (status) => {
     const colors = {
       classified: '#00ff41',
-      active: '#00ff41',
       warning: '#ffff00',
-      online: '#00ff41',
-      deployed: '#00ff41',
-      secure: '#00ff41',
-      encrypted: '#00ff41',
-      fortified: '#00ff41',
-      watching: '#ffff00',
-      locked: '#00ff41',
-      contained: '#00ff41'
+      critical: '#ff0041',
+      secured: '#00ff41',
+      active: '#00ff41',
+      monitoring: '#ffff00',
+      collecting: '#ff9900',
+      operational: '#00ff41',
+      experimental: '#9900ff',
+      fortified: '#00ff41'
     };
     return colors[status] || '#00ff41';
   };
