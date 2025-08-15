@@ -3,7 +3,7 @@ import LandingScreen from './components/LandingScreen';
 import Navigation from './components/Navigation';
 import StorySection from './components/StorySection';
 import GallerySection from './components/GallerySection';
-import ContactSection from './components/ContactSection';
+import SecureYourMindSection from './components/SecureYourMindSection';
 import MatrixBackground from './components/MatrixBackground';
 import './styles/App.css';
 
@@ -39,7 +39,7 @@ function App() {
           <div className="content">
             {activeSection === 'story' && <StorySection />}
             {activeSection === 'gallery' && <GallerySection />}
-            {activeSection === 'contact' && <ContactSection />}
+            {activeSection === 'secure-mind' && <SecureYourMindSection />}
           </div>
         </>
       )}

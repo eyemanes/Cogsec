@@ -5,7 +5,7 @@ const Navigation = ({ activeSection, onSectionChange }) => {
   const navItems = [
     { id: 'story', label: 'Story' },
     { id: 'gallery', label: 'Gallery' },
-    { id: 'contact', label: 'Contact' }
+    { id: 'secure-mind', label: 'Secure Your Mind' }
   ];
 
   return (

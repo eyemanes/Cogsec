@@ -453,6 +453,55 @@ const AIDetectionProtocol = () => {
           >
             🔄 RUN NEW ANALYSIS
           </button>
+
+          {/* Contact Information */}
+          <div className="contact-info">
+            <div className="crypto-section">
+              <h4>🔐 SECURE COMMUNICATIONS</h4>
+              <div className="crypto-address">
+                <span className="address-label">CA:</span>
+                <div className="address-container">
+                  <span className="address-value">8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4</span>
+                  <button 
+                    className="copy-btn"
+                    onClick={() => {
+                      navigator.clipboard.writeText('8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4');
+                      const btn = document.querySelector('.copy-btn');
+                      const original = btn.textContent;
+                      btn.textContent = 'COPIED!';
+                      setTimeout(() => btn.textContent = original, 2000);
+                    }}
+                  >
+                    📋 COPY
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="social-section">
+              <h4>🌐 NEURAL NETWORK FEEDS</h4>
+              <div className="social-links">
+                <a 
+                  href="https://x.com/cogsecsol" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="social-link twitter-profile"
+                >
+                  <span className="social-icon">🐦</span>
+                  <span>@cogsecsol - Official Profile</span>
+                </a>
+                <a 
+                  href="https://x.com/i/communities/1954604922512822518" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="social-link community-link"
+                >
+                  <span className="social-icon">👥</span>
+                  <span>Join the Cogsec Community</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
