@@ -42,6 +42,58 @@ const StorySection = () => {
       
       <h2 className="section-title">THE COGSEC INITIATIVE</h2>
       
+      {/* Contact Information Section */}
+      <div className="contact-section-main">
+        <div className="contact-grid">
+          <div className="glass-card contact-card">
+            <h3>🔐 SECURE COMMUNICATIONS</h3>
+            <div className="crypto-address">
+              <span className="address-label">CA:</span>
+              <div className="address-container">
+                <span className="address-value">8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4</span>
+                <button 
+                  className="copy-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigator.clipboard.writeText('8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4');
+                    const btn = e.target;
+                    const original = btn.textContent;
+                    btn.textContent = 'COPIED!';
+                    setTimeout(() => btn.textContent = original, 2000);
+                  }}
+                >
+                  📋 COPY
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="glass-card contact-card">
+            <h3>🌐 NEURAL NETWORK FEEDS</h3>
+            <div className="social-links">
+              <a 
+                href="https://x.com/cogsecsol" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="social-link twitter-profile"
+              >
+                <span className="social-icon">🐦</span>
+                <span>@cogsecsol - Official Profile</span>
+              </a>
+              <a 
+                href="https://x.com/i/communities/1954604922512822518" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="social-link community-link"
+              >
+                <span className="social-icon">👥</span>
+                <span>Join the Cogsec Community</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <div className="story-grid">
         {storyCards.map((card, index) => (
           <div key={index} className="glass-card story-card">
@@ -74,6 +126,35 @@ const StorySection = () => {
         </p>
         <div className="directive-signature">
           — NERV Command Division
+        </div>
+      </div>
+      
+      {/* Disclaimer Section */}
+      <div className="disclaimer-section glass-card">
+        <h3>⚠️ IMPORTANT DISCLAIMER</h3>
+        <div className="disclaimer-content">
+          <p>
+            <strong>FICTIONAL CONTENT:</strong> This entire narrative, including all references to "Cogsec," 
+            "AI detection protocols," "cognitive security," and "neural firewalls" is completely fictional 
+            and created for entertainment purposes only.
+          </p>
+          <p>
+            <strong>MEME TOKEN:</strong> COGSEC is a meme cryptocurrency token created for fun and community 
+            engagement. This token has <strong>no intrinsic value</strong>, provides <strong>no utility</strong>, 
+            and should not be considered an investment opportunity.
+          </p>
+          <p>
+            <strong>NOT FINANCIAL ADVICE:</strong> Nothing on this website constitutes financial, investment, 
+            or economic advice. Cryptocurrency investments are highly speculative and risky. 
+            <strong>You may lose all invested funds.</strong>
+          </p>
+          <p>
+            <strong>FOR ENTERTAINMENT ONLY:</strong> This project is intended purely for entertainment, 
+            artistic expression, and community building within the cryptocurrency space.
+          </p>
+        </div>
+        <div className="disclaimer-signature">
+          — The COGSEC Development Team
         </div>
       </div>
     </div>

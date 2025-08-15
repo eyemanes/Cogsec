@@ -468,6 +468,8 @@ const AIDetectionProtocol = () => {
       </div>
     );
   };
+
+  const renderTestPhase = () => {
     const test = testData[currentPhase];
     if (!test) return null;
 
