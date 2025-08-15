@@ -416,6 +416,18 @@ const AIDetectionProtocol = () => {
           >
             🔄 RUN NEW VERIFICATION
           </button>
+          
+          <button 
+            className="go-to-website-btn"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              // Navigate to the main website content
+              window.location.href = '/#story';
+            }}
+          >
+            🌐 GO TO WEBSITE
+          </button>
         </div>
 
         {/* Contact Information for cached users */}

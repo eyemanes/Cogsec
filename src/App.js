@@ -3,13 +3,14 @@ import LandingScreen from './components/LandingScreen';
 import Navigation from './components/Navigation';
 import StorySection from './components/StorySection';
 import GallerySection from './components/GallerySection';
-import SecureYourMindSection from './components/SecureYourMindSection';
+import KnowledgeSection from './components/KnowledgeSection';
+import MindQuizSection from './components/MindQuizSection';
 import MatrixBackground from './components/MatrixBackground';
 import './styles/App.css';
 
 function App() {
   const [showLanding, setShowLanding] = useState(true);
-  const [activeSection, setActiveSection] = useState('story');
+  const [activeSection, setActiveSection] = useState('homepage');
   const [testCompleted, setTestCompleted] = useState(false);
 
   useEffect(() => {
@@ -58,9 +59,10 @@ function App() {
           />
           
           <div className="content">
-            {activeSection === 'story' && <StorySection />}
+            {activeSection === 'homepage' && <StorySection />}
             {activeSection === 'gallery' && <GallerySection />}
-            {activeSection === 'secure-mind' && <SecureYourMindSection />}
+            {activeSection === 'knowledge' && <KnowledgeSection />}
+            {activeSection === 'mind-quiz' && <MindQuizSection onNavigate={handleSectionChange} />}
           </div>
         </>
       )}

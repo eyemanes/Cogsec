@@ -619,7 +619,7 @@
   flex-wrap: wrap;
 }
 
-.continue-btn, .new-test-btn {
+.continue-btn, .new-test-btn, .go-to-website-btn {
   background: rgba(0, 255, 65, 0.1);
   border: 2px solid rgba(0, 255, 65, 0.3);
   color: #00ff41;
@@ -635,7 +635,7 @@
   gap: 0.5rem;
 }
 
-.continue-btn:hover, .new-test-btn:hover {
+.continue-btn:hover, .new-test-btn:hover, .go-to-website-btn:hover {
   background: rgba(0, 255, 65, 0.2);
   border-color: #00ff41;
   box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
@@ -652,6 +652,18 @@
   background: rgba(255, 255, 0, 0.2);
   border-color: #ffff00;
   box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);
+}
+
+.go-to-website-btn {
+  background: rgba(0, 123, 255, 0.1);
+  border-color: rgba(0, 123, 255, 0.3);
+  color: #007bff;
+}
+
+.go-to-website-btn:hover {
+  background: rgba(0, 123, 255, 0.2);
+  border-color: #007bff;
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
 }
 
 .crypto-section, .social-section {
@@ -848,7 +860,7 @@
     align-items: center;
   }
   
-  .continue-btn, .new-test-btn {
+  .continue-btn, .new-test-btn, .go-to-website-btn {
     width: 100%;
     max-width: 300px;
     justify-content: center;
