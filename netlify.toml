@@ -1,0 +1,1 @@
+[build]\n  publish = \"build\"\n  command = \"npm run build\"\n\n[[redirects]]\n  from = \"/*\"\n  to = \"/index.html\"\n  status = 200\n\n[build.environment]\n  NODE_VERSION = \"18\"\n
