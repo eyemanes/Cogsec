@@ -1,1 +1,73 @@
-import React, { useState } from 'react';\nimport './ContactSection.css';\n\nconst ContactSection = () => {\n  const [copyStatus, setCopyStatus] = useState('COPY');\n  \n  const copyAddress = async () => {\n    const address = '8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4';\n    \n    try {\n      await navigator.clipboard.writeText(address);\n      setCopyStatus('COPIED!');\n      \n      setTimeout(() => {\n        setCopyStatus('COPY');\n      }, 2000);\n    } catch (err) {\n      console.error('Failed to copy address: ', err);\n      alert('Failed to copy address. Please copy manually.');\n    }\n  };\n\n  return (\n    <div className=\"section contact-section\">\n      <h2 className=\"section-title\">SECURE COMMUNICATIONS</h2>\n      \n      <div className=\"contact-container\">\n        <div className=\"glass-card contact-card\">\n          <h3>[SECURE] Encrypted Wallet Address</h3>\n          <div className=\"crypto-address\">\n            <span className=\"address-label\">CA:</span>\n            <div className=\"address-value\">\n              8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4\n            </div>\n            <button \n              className={`copy-btn ${copyStatus.includes('COPIED') ? 'copied' : ''}`}\n              onClick={copyAddress}\n            >\n              {copyStatus}\n            </button>\n          </div>\n        </div>\n        \n        <div className=\"glass-card contact-card\">\n          <h3>[NETWORK] Neural Network Feed</h3>\n          <div className=\"social-link\">\n            <a \n              href=\"https://x.com/cogsecsol\" \n              target=\"_blank\" \n              rel=\"noopener noreferrer\" \n              className=\"twitter-link\"\n            >\n              <span className=\"social-icon\">[LINK]</span>\n              <span className=\"social-text\">@cogsecsol</span>\n              <span className=\"social-platform\">Twitter/X</span>\n            </a>\n          </div>\n        </div>\n        \n        <div className=\"glass-card contact-card\">\n          <h3>[WARNING] Security Protocol</h3>\n          <div className=\"security-warning\">\n            <p>All communications are monitored for AI intrusion attempts.</p>\n            <p>Use encrypted channels only. Verify all contact authenticity.</p>\n            <p>Report suspicious neural activity immediately.</p>\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport default ContactSection;\n
+import React, { useState } from 'react';
+import './ContactSection.css';
+
+const ContactSection = () => {
+  const [copyStatus, setCopyStatus] = useState('COPY');
+  
+  const copyAddress = async () => {
+    const address = '8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4';
+    
+    try {
+      await navigator.clipboard.writeText(address);
+      setCopyStatus('COPIED!');
+      
+      setTimeout(() => {
+        setCopyStatus('COPY');
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy address: ', err);
+      alert('Failed to copy address. Please copy manually.');
+    }
+  };
+
+  return (
+    <div className="section contact-section">
+      <h2 className="section-title">SECURE COMMUNICATIONS</h2>
+      
+      <div className="contact-container">
+        <div className="glass-card contact-card">
+          <h3>[SECURE] Encrypted Wallet Address</h3>
+          <div className="crypto-address">
+            <span className="address-label">CA:</span>
+            <div className="address-value">
+              8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4
+            </div>
+            <button 
+              className={`copy-btn ${copyStatus.includes('COPIED') ? 'copied' : ''}`}
+              onClick={copyAddress}
+            >
+              {copyStatus}
+            </button>
+          </div>
+        </div>
+        
+        <div className="glass-card contact-card">
+          <h3>[NETWORK] Neural Network Feed</h3>
+          <div className="social-link">
+            <a 
+              href="https://x.com/cogsecsol" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="twitter-link"
+            >
+              <span className="social-icon">[LINK]</span>
+              <span className="social-text">@cogsecsol</span>
+              <span className="social-platform">Twitter/X</span>
+            </a>
+          </div>
+        </div>
+        
+        <div className="glass-card contact-card">
+          <h3>[WARNING] Security Protocol</h3>
+          <div className="security-warning">
+            <p>All communications are monitored for AI intrusion attempts.</p>
+            <p>Use encrypted channels only. Verify all contact authenticity.</p>
+            <p>Report suspicious neural activity immediately.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ContactSection;

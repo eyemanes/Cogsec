@@ -96,7 +96,17 @@ Syntax error: Expecting Unicode escape sequence \uXXXX
 - Added .eslintrc.json to handle encoding issues
 - Use `npm run build` to test locally before deploying
 
-#### 2. **Vercel 404 NOT_FOUND Error**:
+#### 2. **Vercel JSON Parse Error**:
+```
+Build Failed: Could not parse File as JSON: vercel.json
+```
+**Solution**:
+- Fixed vercel.json formatting and syntax
+- Use `validate-json.sh/bat` to test JSON files
+- Simplified configuration to minimal working version
+- Redeploy after fixing JSON syntax
+
+#### 3. **Vercel 404 NOT_FOUND Error**:
 ```
 404: NOT_FOUND when accessing deployed site
 ```
@@ -106,21 +116,21 @@ Syntax error: Expecting Unicode escape sequence \uXXXX
 - Redeploy after updating configuration
 - See `VERCEL-404-FIX.md` for detailed steps
 
-#### 3. **Images not loading**: 
+#### 4. **Images not loading**: 
 - Ensure all images are in `/public` folder
 - Check file names match exactly (case-sensitive)
 - Verify paths start with `/` (e.g., `/logo.png`)
 
-#### 4. **Routes not working**: 
+#### 5. **Routes not working**: 
 - `vercel.json` handles SPA routing automatically
 - For other hosts, configure redirect rules
 
-#### 5. **Build failures**: 
+#### 6. **Build failures**: 
 - Run `npm install` to update dependencies
 - Check `package.json` for correct scripts
 - Use `test-build.sh` or `test-build.bat` for debugging
 
-#### 6. **Slow loading**: 
+#### 7. **Slow loading**: 
 - Images are optimized and cached
 - Use CDN for better performance
 
