@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Navigation.css';
 
 const Navigation = ({ activeSection, onSectionChange }) => {
   const [showKnowledgeDropdown, setShowKnowledgeDropdown] = useState(false);
+  const dropdownRef = useRef(null);
 
   const navItems = [
     { id: 'homepage', label: 'Homepage' },
@@ -19,12 +20,22 @@ const Navigation = ({ activeSection, onSectionChange }) => {
 
   const isKnowledgeSection = knowledgeItems.some(item => item.id === activeSection);
 
-  const handleKnowledgeMouseEnter = () => {
-    setShowKnowledgeDropdown(true);
-  };
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowKnowledgeDropdown(false);
+      }
+    };
 
-  const handleKnowledgeMouseLeave = () => {
-    setShowKnowledgeDropdown(false);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleKnowledgeClick = () => {
+    setShowKnowledgeDropdown(!showKnowledgeDropdown);
   };
 
   const handleSubMenuClick = (sectionId) => {
@@ -52,13 +63,13 @@ const Navigation = ({ activeSection, onSectionChange }) => {
           
           {/* Knowledge Dropdown Menu */}
           <li 
+            ref={dropdownRef}
             className={`nav-item dropdown ${isKnowledgeSection ? 'active' : ''}`}
-            onMouseEnter={handleKnowledgeMouseEnter}
-            onMouseLeave={handleKnowledgeMouseLeave}
+            onClick={handleKnowledgeClick}
           >
             <span className="dropdown-label">
               Knowledge
-              <span className="dropdown-arrow">▼</span>
+              <span className={`dropdown-arrow ${showKnowledgeDropdown ? 'open' : ''}`}>▼</span>
             </span>
             
             {showKnowledgeDropdown && (
@@ -67,7 +78,10 @@ const Navigation = ({ activeSection, onSectionChange }) => {
                   <li 
                     key={item.id}
                     className={`dropdown-item ${activeSection === item.id ? 'active' : ''}`}
-                    onClick={() => handleSubMenuClick(item.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSubMenuClick(item.id);
+                    }}
                   >
                     {item.label}
                   </li>
