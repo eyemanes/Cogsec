@@ -56,32 +56,6 @@ const StoriesSection = () => {
       ],
       threatLevel: "MEDIUM",
       source: "https://www.washingtonpost.com/technology/2025/08/15/google-ai-overviews-scam/"
-    },
-    {
-      id: 3,
-      title: "Cryptocurrency 'Pig-Butchering' Scam - Identity Theft",
-      category: "Social Engineering",
-      location: "Global (Turkey case)",
-      amount: "Life Savings",
-      date: "2025",
-      summary: "AI-generated personas used to lure victims into fake cryptocurrency investments",
-      fullStory: "A widespread scam known as 'pig-butcher' duped victims, including a Turkish man, via WhatsApp. They were lured into investing in a fake cryptocurrency using stolen or AI-generated images of an attractive woman ('Dora'/'Jasmine'/'Anna'). Many lost their life savings, and the influencer whose images were used faced harassment.",
-      tactics: [
-        "AI-generated or stolen profile images",
-        "Long-term relationship building",
-        "Fake cryptocurrency platforms",
-        "Identity theft and impersonation",
-        "Social media manipulation"
-      ],
-      defenses: [
-        "Never invest based on online relationships",
-        "Verify investment platforms independently",
-        "Be suspicious of unsolicited investment advice",
-        "Use reverse image searches on profile photos",
-        "Trust but verify all financial opportunities"
-      ],
-      threatLevel: "CRITICAL",
-      source: "https://www.businessinsider.com/finding-dora-influencer-instagram-pig-butchering-scams-victim-images-stolen-2025-7"
     }
   ];
 
@@ -107,29 +81,28 @@ const StoriesSection = () => {
       <div className="section-header">
         <h1 className="section-title">FIELD REPORTS</h1>
         <p className="section-subtitle">
-          Documented AI manipulation incidents and cognitive security breaches
+          Documented AI manipulation incidents and security breaches
         </p>
       </div>
 
       <div className="stories-intro glass-card">
-        <h2>Intelligence Briefing</h2>
+        <h2>Case Studies</h2>
         <p>
-          The following cases represent verified incidents of AI-powered manipulation attacks 
-          on civilian populations. These reports demonstrate the escalating sophistication 
-          of cognitive warfare tactics and the urgent need for mental defense protocols.
+          Real-world examples of AI-powered attacks targeting individuals. 
+          These cases demonstrate current threats and prevention strategies.
         </p>
         <div className="briefing-stats">
           <div className="stat-item">
             <span className="stat-number">{stories.length}</span>
-            <span className="stat-label">Active Cases</span>
+            <span className="stat-label">Documented Cases</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">$45K+</span>
-            <span className="stat-label">Documented Losses</span>
+            <span className="stat-number">$15K+</span>
+            <span className="stat-label">Total Losses</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number">Global</span>
-            <span className="stat-label">Threat Scope</span>
+            <span className="stat-number">2024-25</span>
+            <span className="stat-label">Time Period</span>
           </div>
         </div>
       </div>
@@ -159,7 +132,7 @@ const StoriesSection = () => {
             </div>
             
             <div className="read-more">
-              <span>VIEW FULL REPORT</span>
+              <span>VIEW DETAILS</span>
             </div>
           </div>
         ))}
@@ -178,7 +151,7 @@ const StoriesSection = () => {
                     className="modal-threat"
                     style={{ color: getThreatColor(selectedStory.threatLevel) }}
                   >
-                    THREAT: {selectedStory.threatLevel}
+                    {selectedStory.threatLevel} RISK
                   </span>
                 </div>
               </div>
@@ -193,7 +166,7 @@ const StoriesSection = () => {
                     <span className="detail-value">{selectedStory.location}</span>
                   </div>
                   <div className="detail-item">
-                    <span className="detail-label">Financial Impact:</span>
+                    <span className="detail-label">Financial Loss:</span>
                     <span className="detail-value">{selectedStory.amount}</span>
                   </div>
                   <div className="detail-item">
@@ -204,13 +177,13 @@ const StoriesSection = () => {
               </div>
 
               <div className="incident-report">
-                <h3>Incident Report</h3>
+                <h3>Case Details</h3>
                 <p>{selectedStory.fullStory}</p>
               </div>
 
               <div className="analysis-section">
                 <div className="tactics-section">
-                  <h3>Attack Vectors</h3>
+                  <h3>Attack Methods</h3>
                   <ul className="tactics-list">
                     {selectedStory.tactics.map((tactic, index) => (
                       <li key={index}>{tactic}</li>
@@ -219,7 +192,7 @@ const StoriesSection = () => {
                 </div>
 
                 <div className="defenses-section">
-                  <h3>Defense Protocols</h3>
+                  <h3>Prevention Tips</h3>
                   <ul className="defenses-list">
                     {selectedStory.defenses.map((defense, index) => (
                       <li key={index}>{defense}</li>
@@ -229,14 +202,14 @@ const StoriesSection = () => {
               </div>
 
               <div className="source-section">
-                <h3>Source Intelligence</h3>
+                <h3>Source</h3>
                 <a 
                   href={selectedStory.source} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="source-link"
                 >
-                  View Original Report
+                  Read Original Article
                 </a>
               </div>
             </div>
