@@ -67,19 +67,9 @@ const ToolsResourcesSection = () => {
       category: "Fact-Checking & Verification",
       tools: [
         {
-          name: "ClaimBuster, Full Fact",
-          url: "https://informationethics.ca/.../502/487/791",
-          description: "AI fact-checkers—100% accurate per study"
-        },
-        {
           name: "Facticity.AI",
           url: "https://facticity.ai/",
           description: "Real-time fact-checker; 92% accuracy"
-        },
-        {
-          name: "ClaimHunter",
-          url: "https://newtral.es/",
-          description: "Flags political claims 70–80% faster"
         },
         {
           name: "Logically",
@@ -102,16 +92,6 @@ const ToolsResourcesSection = () => {
       category: "Platform Monitoring & Defense",
       tools: [
         {
-          name: "Cyabra",
-          url: "https://en.wikipedia.org/wiki/Cyabra",
-          description: "Platform detecting AI-generated narratives"
-        },
-        {
-          name: "AdVerif.ai / Zefr AI",
-          url: "https://adverifai.com",
-          description: "Detects misinformation in ads"
-        },
-        {
           name: "ZeroFox",
           url: "https://zerofox.com",
           description: "Monitors digital platforms for disinfo threats"
@@ -130,11 +110,6 @@ const ToolsResourcesSection = () => {
           name: "News Literacy Project",
           url: "https://en.wikipedia.org/wiki/News_Literacy_Project",
           description: "Educational resources for media literacy"
-        },
-        {
-          name: "DISARM Framework",
-          url: "https://boozallen.com/.../measurement-and-visualization-of-the-cognitive-domain.html",
-          description: "Visual framework to map cognitive threats"
         }
       ]
     }
