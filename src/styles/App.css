@@ -17,6 +17,7 @@ body {
 .App {
   min-height: 100vh;
   position: relative;
+  padding-top: 80px; /* Add space for fixed navigation */
 }
 
 /* Content */

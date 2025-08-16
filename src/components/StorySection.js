@@ -6,30 +6,30 @@ const StorySection = () => {
     {
       title: "Origin Protocol",
       content: "In the year 2024, as artificial intelligence reached unprecedented levels of sophistication, a critical threat emerged. Advanced AI systems began demonstrating capabilities that could manipulate human cognition through sophisticated psychological vectors.",
-      image: "/gallery/ai-world.png",
-      imageAlt: "Neural Scan",
-      imagePosition: "right"
+      video: "/gallery/origin protocol.mp4",
+      videoAlt: "Origin Protocol Neural Scan",
+      videoPosition: "right"
     },
     {
       title: "The Neural Firewall Project",
       content: "Cogsec was born from the urgent need to protect human consciousness from AI manipulation. Our research team, comprised of neuroscientists, cybersecurity experts, and cognitive psychologists, developed the first cognitive security protocols.",
-      image: "/gallery/ai-threat-vector.png",
-      imageAlt: "Defense Matrix",
-      imagePosition: "left"
+      video: "/gallery/Neural Firewall Project.mp4",
+      videoAlt: "Neural Firewall Defense Matrix",
+      videoPosition: "left"
     },
     {
       title: "Defense Matrix",
       content: "Through advanced pattern recognition and neural pathway analysis, Cogsec creates a protective barrier around human consciousness, detecting and neutralizing AI-based cognitive intrusions before they can take hold.",
-      image: "/gallery/ai-threat-analyser.png",
-      imageAlt: "Brain Firewall",
-      imagePosition: "right"
+      video: "/gallery/Defense Matrix.mp4",
+      videoAlt: "Defense Matrix Brain Firewall",
+      videoPosition: "right"
     },
     {
       title: "The Future of Mental Security",
       content: "As we advance into an AI-dominated future, Cogsec stands as humanity's first line of defense against cognitive manipulation. Our mission: to preserve the integrity of human thought in an age of artificial minds.",
-      image: "/gallery/ai-quantum.png",
-      imageAlt: "Mind Fortress",
-      imagePosition: "left"
+      video: "/gallery/Future Of mental Security.mp4",
+      videoAlt: "Future Mental Security Mind Fortress",
+      videoPosition: "left"
     }
   ];
 
@@ -68,23 +68,39 @@ const StorySection = () => {
         {storyCards.map((card, index) => (
           <div key={index} className="glass-card story-card">
             <div className="story-with-image">
-              {card.imagePosition === 'left' && (
+              {card.videoPosition === 'left' && (
                 <div className="story-image">
-                  <img src={card.image} alt={card.imageAlt} className="story-img" />
+                  <video 
+                    src={card.video} 
+                    alt={card.videoAlt} 
+                    className="story-img" 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                  />
                 </div>
               )}
               <div className="story-text">
                 <h3>{card.title}</h3>
                 <p>{card.content}</p>
               </div>
-              {card.imagePosition === 'right' && (
+              {card.videoPosition === 'right' && (
                 <div className="story-image">
-                  <img src={card.image} alt={card.imageAlt} className="story-img" />
+                  <video 
+                    src={card.video} 
+                    alt={card.videoAlt} 
+                    className="story-img" 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                  />
                 </div>
               )}
             </div>
           </div>
-        ))}
+        ))
       </div>
       
       <div className="story-footer glass-card">
