@@ -59,12 +59,16 @@
 }
 
 .story-image {
-  flex: 0 0 200px;
+  flex: 0 0 300px;
+  min-width: 300px;
 }
 
 .story-img {
   width: 100%;
-  height: 200px;
+  height: auto;
+  aspect-ratio: 16/9;
+  min-height: 280px;
+  max-height: 350px;
   object-fit: cover;
   border-radius: 10px;
   border: 1px solid rgba(0, 255, 65, 0.3);
@@ -327,8 +331,10 @@
   
   .story-img {
     width: 100%;
-    height: 250px;
-    max-height: 250px;
+    height: auto;
+    aspect-ratio: 16/9;
+    min-height: 200px;
+    max-height: 280px;
   }
   
   .story-text {
@@ -417,7 +423,10 @@
   }
   
   .story-img {
-    height: 200px;
+    height: auto;
+    aspect-ratio: 16/9;
+    min-height: 180px;
+    max-height: 220px;
   }
   
   .story-text h3 {

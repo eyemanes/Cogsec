@@ -34,7 +34,15 @@ const Navigation = ({ activeSection, onSectionChange }) => {
     };
   }, []);
 
-  const handleKnowledgeClick = () => {
+  // Debug effect to log dropdown state changes
+  useEffect(() => {
+    console.log('Dropdown state changed:', showKnowledgeDropdown);
+  }, [showKnowledgeDropdown]);
+
+  const handleKnowledgeClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Knowledge dropdown clicked, current state:', showKnowledgeDropdown);
     setShowKnowledgeDropdown(!showKnowledgeDropdown);
   };
 
