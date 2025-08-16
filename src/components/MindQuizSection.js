@@ -342,7 +342,7 @@ const MindQuizSection = ({ onNavigate }) => {
             <button className="retake-btn" onClick={resetQuiz}>
               RETAKE ASSESSMENT
             </button>
-            <button className="knowledge-btn" onClick={() => onNavigate && onNavigate('knowledge')}>
+            <button className="knowledge-btn" onClick={() => onNavigate && onNavigate('reports')}>
               STUDY KNOWLEDGE BASE
             </button>
           </div>

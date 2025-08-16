@@ -2,134 +2,6 @@ import React from 'react';
 import './ToolsResourcesSection.css';
 
 const ToolsResourcesSection = () => {
-  const cognitiveThreats = [
-    {
-      title: "Recognize Cognitive Threats",
-      items: [
-        {
-          name: "Information Overload",
-          description: "Too much info makes you easier to manipulate. Curate sources, don't drown in them."
-        },
-        {
-          name: "Echo Chambers",
-          description: "Algorithms feed you what you already believe. Deliberately seek opposing viewpoints."
-        },
-        {
-          name: "Emotional Manipulation",
-          description: "Ads, propaganda, and clickbait hook you through anger, fear, or desire."
-        },
-        {
-          name: "AI-Generated Misinformation",
-          description: "Deepfakes, AI newsbots, and fake reviews blur truth from fiction."
-        }
-      ]
-    }
-  ];
-
-  const defensiveMindset = [
-    {
-      title: "Defensive Mindset Habits",
-      items: [
-        {
-          name: "Question the Source",
-          description: "Who benefits from you believing this?"
-        },
-        {
-          name: "Pause Before Sharing",
-          description: "Misinformation spreads faster than facts."
-        },
-        {
-          name: "Delay Reaction",
-          description: "Emotional responses are easy manipulation points."
-        },
-        {
-          name: "Check Multiple Sources",
-          description: "Especially for shocking or sensational claims."
-        }
-      ]
-    }
-  ];
-
-  const attentionSecurity = [
-    {
-      title: "Attention Security",
-      items: [
-        {
-          name: "Control Your Inputs",
-          description: "Limit push notifications, unfollow toxic feeds."
-        },
-        {
-          name: "Use Time Blocks",
-          description: "Schedule when to engage with content."
-        },
-        {
-          name: "Mute Distractions",
-          description: "Your attention is prime real estate; guard it like money."
-        },
-        {
-          name: "Mindful Consumption",
-          description: "Ask yourself: Why am I seeing this right now?"
-        }
-      ]
-    }
-  ];
-
-  const aiAwareness = [
-    {
-      title: "AI & Data Awareness",
-      items: [
-        {
-          name: "AI Can Profile You",
-          description: "Every click, like, and pause feeds models predicting your behavior."
-        },
-        {
-          name: "Personalized Manipulation",
-          description: "Micro-targeted ads aren't random; they're built to bypass your defenses."
-        },
-        {
-          name: "Deepfake Literacy",
-          description: "Learn to spot synthetic voices, faces, and text patterns."
-        }
-      ]
-    }
-  ];
-
-  const cognitiveSelfTraining = [
-    {
-      title: "Cognitive Self-Training",
-      items: [
-        {
-          name: "Mental Firewalls",
-          description: "Practice spotting logical fallacies and emotional bait."
-        },
-        {
-          name: "Memory Hygiene",
-          description: "Don't store everything; retain what's useful and verified."
-        },
-        {
-          name: "Perspective Shifts",
-          description: "Force yourself into 'devil's advocate' mode regularly."
-        },
-        {
-          name: "Information Diets",
-          description: "Fast from news or social media to reset your mental baseline."
-        }
-      ]
-    }
-  ];
-
-  const redFlags = [
-    {
-      title: "Red Flags of Mind Infiltration",
-      items: [
-        "Sudden, unexplained shifts in your beliefs",
-        "Compulsively checking a platform",
-        "Feeling constant outrage without knowing why",
-        "Adopting phrases or ideas you never questioned"
-      ]
-    }
-  ];
-
   const detectionTools = [
     {
       category: "AI Text Detection",
@@ -210,11 +82,6 @@ const ToolsResourcesSection = () => {
           description: "Flags political claims 70–80% faster"
         },
         {
-          name: "Veracity",
-          url: "https://arxiv.org/abs/2506.15794",
-          description: "Open-source veracity scoring tool"
-        },
-        {
           name: "Logically",
           url: "https://logically.ai",
           description: "AI + humans detect disinfo narratives"
@@ -224,21 +91,6 @@ const ToolsResourcesSection = () => {
     {
       category: "Browser Extensions & Tools",
       tools: [
-        {
-          name: "Hoaxy",
-          url: "https://arxiv.org/abs/1603.01511",
-          description: "Visualizes misinformation spread"
-        },
-        {
-          name: "Check-It",
-          url: "https://arxiv.org/abs/1905.04260",
-          description: "Browser plugin, >99% fake news accuracy"
-        },
-        {
-          name: "BRENDA",
-          url: "https://arxiv.org/abs/2005.13270",
-          description: "Deep-learning browser extension for credibility"
-        },
         {
           name: "SurfSafe",
           url: "https://www.getsurfsafe.com",
@@ -280,11 +132,6 @@ const ToolsResourcesSection = () => {
           description: "Educational resources for media literacy"
         },
         {
-          name: "AMITT Framework",
-          url: "#",
-          description: "Catalogs misinformation tactics for defense"
-        },
-        {
           name: "DISARM Framework",
           url: "https://boozallen.com/.../measurement-and-visualization-of-the-cognitive-domain.html",
           description: "Visual framework to map cognitive threats"
@@ -293,28 +140,8 @@ const ToolsResourcesSection = () => {
     }
   ];
 
-  const renderDefenseSection = (section) => (
-    <div key={section.title} className="defense-section glass-card">
-      <h3>{section.title}</h3>
-      <div className="defense-items">
-        {section.items.map((item, index) => (
-          <div key={index} className="defense-item">
-            {typeof item === 'string' ? (
-              <div className="simple-item">• {item}</div>
-            ) : (
-              <>
-                <h4>{item.name}</h4>
-                <p>{item.description}</p>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
   const renderToolsAndResources = () => (
-    <div className="tools-resources-section">
+    <div className="tools-resources-main">
       <h2>Detection Tools & Resources</h2>
       <p className="tools-intro">
         Comprehensive collection of tools and resources to help you identify AI-generated content, 
@@ -327,17 +154,18 @@ const ToolsResourcesSection = () => {
           <div className="tools-grid">
             {category.tools.map((tool, toolIndex) => (
               <div key={toolIndex} className="tool-card">
-                <h4>
+                <div className="tool-header">
+                  <h4 className="tool-name">{tool.name}</h4>
                   <a 
                     href={tool.url} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="tool-link"
+                    className="visit-site-btn"
                   >
-                    {tool.name}
+                    VISIT SITE
                   </a>
-                </h4>
-                <p>{tool.description}</p>
+                </div>
+                <p className="tool-description">{tool.description}</p>
               </div>
             ))}
           </div>
@@ -351,16 +179,8 @@ const ToolsResourcesSection = () => {
       <div className="section-header">
         <h1 className="section-title">TOOLS & RESOURCES</h1>
         <p className="section-subtitle">
-          Essential cognitive security knowledge and defensive tools
+          Professional tools for detecting AI manipulation and verifying content
         </p>
-      </div>
-
-      {/* Core Defense Strategies */}
-      <div className="defense-strategies">
-        <h2>Core Defense Strategies</h2>
-        <div className="strategies-grid">
-          {[...cognitiveThreats, ...defensiveMindset, ...attentionSecurity, ...aiAwareness, ...cognitiveSelfTraining, ...redFlags].map(renderDefenseSection)}
-        </div>
       </div>
 
       {/* Detection Tools Section */}

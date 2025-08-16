@@ -5,6 +5,7 @@ import StorySection from './components/StorySection';
 import ReportsSection from './components/ReportsSection';
 import GallerySection from './components/GallerySection';
 import ToolsResourcesSection from './components/ToolsResourcesSection';
+import SecureYourMindSection from './components/SecureYourMindSection';
 import MindQuizSection from './components/MindQuizSection';
 import LiveChatSection from './components/LiveChatSection';
 import MatrixBackground from './components/MatrixBackground';
@@ -40,6 +41,7 @@ function App() {
             {activeSection === 'reports' && <ReportsSection />}
             {activeSection === 'gallery' && <GallerySection />}
             {activeSection === 'tools-resources' && <ToolsResourcesSection />}
+            {activeSection === 'secure-your-mind' && <SecureYourMindSection />}
             {activeSection === 'mind-quiz' && <MindQuizSection onNavigate={handleSectionChange} />}
             {activeSection === 'live-chat' && <LiveChatSection />}
           </div>

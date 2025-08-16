@@ -417,7 +417,7 @@ const AIDetectionProtocol = ({ onEnterSite }) => {
               onEnterSite();
             }}
           >
-            ENTER SITE
+            VIEW SITE
           </button>
         </div>
       </div>
@@ -636,7 +636,7 @@ const AIDetectionProtocol = ({ onEnterSite }) => {
               }}
               className="enter-site-button"
             >
-              ENTER SITE
+              VIEW SITE
             </button>
           </div>
         </div>
