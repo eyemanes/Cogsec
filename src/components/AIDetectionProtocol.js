@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './AIDetectionProtocol.css';
 
-const AIDetectionProtocol = () => {
+const AIDetectionProtocol = ({ onEnterSite }) => {
   const [currentPhase, setCurrentPhase] = useState('initialize');
   const [responses, setResponses] = useState({});
   const [timeSpent, setTimeSpent] = useState({});
@@ -154,44 +154,44 @@ const AIDetectionProtocol = () => {
     // Visual perception analysis
     if (responses['visual-perception'] === "I see both images simultaneously") {
       humanityScore -= 25;
-      indicators.push("⚠️ ALERT: Reported simultaneous perception (typical AI response)");
+      indicators.push("Simultaneous perception reported");
     } else if (responses['visual-perception'] === "Two faces looking at each other" || 
                responses['visual-perception'] === "A white vase or goblet") {
       humanityScore += 20;
-      indicators.push("✅ Natural perceptual bias detected - human-like");
+      indicators.push("Natural perceptual bias detected");
     }
 
     // Pattern recognition analysis
     if (responses['pattern-recognition'] === "☀️") {
       humanityScore += 15;
-      indicators.push("✅ Intuitive pattern completion");
+      indicators.push("Intuitive pattern completion");
     } else if (responses['pattern-recognition'] === "⭐" || responses['pattern-recognition'] === "🌍") {
       humanityScore -= 10;
-      indicators.push("⚠️ Unexpected pattern choice - possible AI creativity");
+      indicators.push("Unexpected pattern choice");
     }
 
     // Response time analysis
     Object.entries(timeSpent).forEach(([phase, time]) => {
       if (time < 1500) {
         humanityScore -= 15;
-        indicators.push(`🚨 ALERT: Unusually fast response in ${phase} (${time}ms)`);
+        indicators.push(`Fast response in ${phase} (${time}ms)`);
       } else if (time > 45000) {
         humanityScore -= 10;
-        indicators.push(`⚠️ WARNING: Extended deliberation in ${phase} (${(time/1000).toFixed(1)}s)`);
+        indicators.push(`Extended deliberation in ${phase}`);
       } else if (time > 3000 && time < 30000) {
         humanityScore += 8;
-        indicators.push(`✅ Natural response time in ${phase}`);
+        indicators.push(`Natural response time in ${phase}`);
       }
     });
 
     // Emotional response analysis
     if (responses['emotional-response'] === "Feel sympathy for the child's disappointment") {
       humanityScore += 25;
-      indicators.push("✅ Strong empathetic response pattern");
+      indicators.push("Empathetic response pattern");
     } else if (responses['emotional-response']?.includes("Calculate") || 
                responses['emotional-response']?.includes("Analyze")) {
       humanityScore -= 20;
-      indicators.push("🚨 ALERT: Analytical rather than emotional response");
+      indicators.push("Analytical rather than emotional response");
     }
 
     // Creative response analysis
@@ -203,17 +203,17 @@ const AIDetectionProtocol = () => {
       
       if (hasMetaphors && hasEmotions && isDetailed) {
         humanityScore += 30;
-        indicators.push("✅ Rich metaphorical and emotional language - highly human");
+        indicators.push("Rich metaphorical and emotional language");
       } else if (hasEmotions) {
         humanityScore += 15;
-        indicators.push("✅ Emotional language detected");
+        indicators.push("Emotional language detected");
       } else if (creativeResponse.split(' ').length < 8) {
         humanityScore -= 15;
-        indicators.push("⚠️ WARNING: Unusually brief creative response");
+        indicators.push("Brief creative response");
       }
     } else if (creativeResponse && creativeResponse.length < 30) {
       humanityScore -= 10;
-      indicators.push("⚠️ Minimal creative elaboration");
+      indicators.push("Minimal creative elaboration");
     }
 
     // Temporal reasoning analysis
@@ -224,13 +224,13 @@ const AIDetectionProtocol = () => {
       
       if (accuracy < 1000) {
         humanityScore -= 20;
-        indicators.push("🚨 ALERT: Suspiciously accurate timing");
+        indicators.push("Highly accurate timing");
       } else if (accuracy > 1000 && accuracy < 3000) {
         humanityScore += 15;
-        indicators.push("✅ Natural timing variation");
+        indicators.push("Natural timing variation");
       } else if (accuracy > 5000) {
         humanityScore += 5;
-        indicators.push("✅ Human-like timing imprecision");
+        indicators.push("Human-like timing imprecision");
       }
     }
 
@@ -238,10 +238,10 @@ const AIDetectionProtocol = () => {
     const movements = mouseMovements.length;
     if (movements < 20) {
       humanityScore -= 20;
-      indicators.push("🚨 ALERT: Minimal mouse movement detected");
+      indicators.push("Minimal mouse movement detected");
     } else if (movements > 50) {
       humanityScore += 15;
-      indicators.push("✅ Natural interaction patterns detected");
+      indicators.push("Natural interaction patterns");
     }
 
     // Calculate movement entropy (randomness)
@@ -253,10 +253,10 @@ const AIDetectionProtocol = () => {
       
       if (xVariance < 5) {
         humanityScore -= 15;
-        indicators.push("⚠️ Suspiciously linear mouse movement");
+        indicators.push("Linear mouse movement");
       } else if (xVariance > 20) {
         humanityScore += 10;
-        indicators.push("✅ Natural mouse movement variation");
+        indicators.push("Natural mouse movement variation");
       }
     }
 
@@ -303,9 +303,6 @@ const AIDetectionProtocol = () => {
     try {
       localStorage.setItem('cogsec_verification_result', JSON.stringify(result));
       localStorage.setItem('cogsec_last_test_date', Date.now().toString());
-      
-      // Emit test completion event
-      window.dispatchEvent(new CustomEvent('cogsec-test-complete'));
     } catch (error) {
       console.warn('Could not save verification result to cache:', error);
     }
@@ -337,7 +334,7 @@ const AIDetectionProtocol = () => {
     return (
       <div className="cached-results">
         <div className="returning-user-header">
-          <h2>🔄 WELCOME BACK - VERIFICATION FOUND</h2>
+          <h2>WELCOME BACK</h2>
           <div className="cache-info">
             <span className="last-test">Last verification: {timeAgo}</span>
             <span className="cache-expires">Cache expires in {7 - daysSinceTest} days</span>
@@ -346,11 +343,6 @@ const AIDetectionProtocol = () => {
         
         <div className="cached-score-display glass-card">
           <div className="verification-status">
-            <div className="status-icon">
-              {cachedResult.accessStatus === 'GRANTED' ? '🟢' : 
-               cachedResult.accessStatus === 'CAUTION' ? '🟡' : 
-               cachedResult.accessStatus === 'RESTRICTED' ? '🟠' : '🔴'}
-            </div>
             <div className="status-text">
               <div className={`classification class-${cachedResult.accessStatus.toLowerCase()}`}>
                 {cachedResult.classification}
@@ -366,19 +358,19 @@ const AIDetectionProtocol = () => {
           <div className="access-status-cached">
             {cachedResult.accessStatus === 'GRANTED' ? (
               <div className="access-granted">
-                🟢 COGNITIVE PATTERNS VERIFIED - ACCESS MAINTAINED
+                ACCESS GRANTED - Verification Complete
               </div>
             ) : cachedResult.accessStatus === 'CAUTION' ? (
               <div className="access-caution">
-                🟡 PROCEED WITH CAUTION - PREVIOUS VERIFICATION UNCERTAIN
+                PROCEED WITH CAUTION - Uncertain Verification
               </div>
             ) : cachedResult.accessStatus === 'RESTRICTED' ? (
               <div className="access-restricted">
-                🟠 RESTRICTED ACCESS - SUSPICIOUS PATTERNS DETECTED
+                RESTRICTED ACCESS - Suspicious Patterns
               </div>
             ) : (
               <div className="access-denied">
-                🔴 ACCESS DENIED - AI INTRUSION DETECTED
+                ACCESS DENIED - AI Detection
               </div>
             )}
           </div>
@@ -393,7 +385,7 @@ const AIDetectionProtocol = () => {
               setCurrentPhase('analysis');
             }}
           >
-            📊 VIEW DETAILED ANALYSIS
+            VIEW DETAILS
           </button>
           
           <button 
@@ -414,7 +406,7 @@ const AIDetectionProtocol = () => {
               setMouseMovements([]);
             }}
           >
-            🔄 RUN NEW VERIFICATION
+            NEW TEST
           </button>
           
           <button 
@@ -422,33 +414,11 @@ const AIDetectionProtocol = () => {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              // Navigate to the main website content
-              window.location.href = '/#story';
+              onEnterSite();
             }}
           >
-            🌐 GO TO WEBSITE
+            ENTER SITE
           </button>
-        </div>
-
-        {/* Contact Information for cached users */}
-        <div className="contact-info-compact">
-          <div className="contact-line">
-            <a href="#" onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              navigator.clipboard.writeText('8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4');
-              const link = e.target;
-              const original = link.textContent;
-              link.textContent = 'COPIED!';
-              setTimeout(() => link.textContent = original, 2000);
-            }} className="contact-link">CA</a>
-            <span className="separator">|</span>
-            <a href="https://x.com/cogsecsol" target="_blank" rel="noopener noreferrer" className="contact-link">Profile</a>
-            <span className="separator">|</span>
-            <a href="https://x.com/i/communities/1954604922512822518" target="_blank" rel="noopener noreferrer" className="contact-link">Community</a>
-            <span className="separator">|</span>
-            <a href="https://t.me/COGSECSOL" target="_blank" rel="noopener noreferrer" className="contact-link">Telegram</a>
-          </div>
         </div>
       </div>
     );
@@ -490,11 +460,11 @@ const AIDetectionProtocol = () => {
                   }}
                   className="test-button start-button"
                 >
-                  🕐 START COUNTING
+                  START COUNTING
                 </button>
               ) : (
                 <div className="counting-phase">
-                  <div className="counting-indicator">Counting... 🧠</div>
+                  <div className="counting-indicator">Counting...</div>
                   <button 
                     onClick={(e) => {
                       e.preventDefault();
@@ -503,7 +473,7 @@ const AIDetectionProtocol = () => {
                     }}
                     className="test-button stop-button"
                   >
-                    ⏹️ STOP (10 seconds passed)
+                    STOP (10 seconds passed)
                   </button>
                 </div>
               )}
@@ -527,7 +497,7 @@ const AIDetectionProtocol = () => {
                 }}
                 className="submit-button"
               >
-                📝 SUBMIT RESPONSE
+                SUBMIT RESPONSE
               </button>
             </div>
           ) : (
@@ -567,25 +537,25 @@ const AIDetectionProtocol = () => {
     return (
       <div className="results-display">
         <div className="scan-complete">
-          <h2>🛡️ COGNITIVE SECURITY ANALYSIS {isReturningUser ? '(CACHED)' : 'COMPLETE'}</h2>
+          <h2>ANALYSIS COMPLETE {isReturningUser ? '(CACHED)' : ''}</h2>
           
           <div className="score-display">
             <div className="humanity-score">
-              <span className="label">HUMANITY SCORE:</span>
+              <span className="label">SCORE:</span>
               <span className={`score score-${result.accessStatus.toLowerCase()}`}>
                 {result.score}/100
               </span>
             </div>
             
             <div className="classification">
-              <span className="label">CLASSIFICATION:</span>
+              <span className="label">STATUS:</span>
               <span className={`value class-${result.accessStatus.toLowerCase()}`}>
                 {result.classification}
               </span>
             </div>
             
             <div className="threat-level">
-              <span className="label">THREAT LEVEL:</span>
+              <span className="label">THREAT:</span>
               <span className={`value threat-${result.threatLevel.toLowerCase()}`}>
                 {result.threatLevel}
               </span>
@@ -595,25 +565,22 @@ const AIDetectionProtocol = () => {
           {!isReturningUser && (
             <div className="test-stats">
               <div className="stat">
-                <span>Tests Completed:</span> {result.totalTests}
+                <span>Tests:</span> {result.totalTests}
               </div>
               <div className="stat">
-                <span>Total Time:</span> {(result.totalTime / 1000).toFixed(1)}s
+                <span>Time:</span> {(result.totalTime / 1000).toFixed(1)}s
               </div>
               <div className="stat">
-                <span>Mouse Interactions:</span> {mouseMovements.length}
+                <span>Interactions:</span> {mouseMovements.length}
               </div>
             </div>
           )}
           
           <div className="analysis-details">
-            <h4>🔍 DETAILED ANALYSIS:</h4>
+            <h4>ANALYSIS:</h4>
             <div className="indicators">
-              {result.indicators.map((indicator, index) => (
-                <div key={index} className={`indicator ${
-                  indicator.startsWith('✅') ? 'positive' : 
-                  indicator.startsWith('🚨') ? 'alert' : 'warning'
-                }`}>
+              {result.indicators.slice(0, 5).map((indicator, index) => (
+                <div key={index} className="indicator">
                   {indicator}
                 </div>
               ))}
@@ -623,62 +590,54 @@ const AIDetectionProtocol = () => {
           <div className="access-status">
             {result.accessStatus === 'GRANTED' ? (
               <div className="access-granted">
-                🟢 ACCESS GRANTED - HUMAN COGNITIVE PATTERNS VERIFIED
+                ACCESS GRANTED
               </div>
             ) : result.accessStatus === 'CAUTION' ? (
               <div className="access-caution">
-                🟡 PROCEED WITH CAUTION - INCONCLUSIVE VERIFICATION
+                PROCEED WITH CAUTION
               </div>
             ) : result.accessStatus === 'RESTRICTED' ? (
               <div className="access-restricted">
-                🟠 ACCESS RESTRICTED - SUSPICIOUS PATTERNS DETECTED
+                ACCESS RESTRICTED
               </div>
             ) : (
               <div className="access-denied">
-                🔴 ACCESS DENIED - AI INTRUSION DETECTED
+                ACCESS DENIED
               </div>
             )}
           </div>
 
-          <button 
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              // Clear cache and restart test
-              localStorage.removeItem('cogsec_verification_result');
-              localStorage.removeItem('cogsec_last_test_date');
-              setIsReturningUser(false);
-              setCachedResult(null);
-              setCurrentPhase('initialize');
-              setResponses({});
-              setTimeSpent({});
-              setFinalScore(null);
-              setMouseMovements([]);
-            }}
-            className="restart-button"
-          >
-            🔄 RUN NEW ANALYSIS
-          </button>
-
-          {/* Contact Information */}
-          <div className="contact-info-compact">
-            <div className="contact-line">
-              <a href="#" onClick={(e) => {
+          <div className="result-actions">
+            <button 
+              onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                navigator.clipboard.writeText('8DiFCBvAkDW4UAyPZH6CX9tJSQ1L7EHFVU92w2gAobP4');
-                const link = e.target;
-                const original = link.textContent;
-                link.textContent = 'COPIED!';
-                setTimeout(() => link.textContent = original, 2000);
-              }} className="contact-link">CA</a>
-              <span className="separator">|</span>
-              <a href="https://x.com/cogsecsol" target="_blank" rel="noopener noreferrer" className="contact-link">Profile</a>
-              <span className="separator">|</span>
-              <a href="https://x.com/i/communities/1954604922512822518" target="_blank" rel="noopener noreferrer" className="contact-link">Community</a>
-              <span className="separator">|</span>
-              <a href="https://t.me/COGSECSOL" target="_blank" rel="noopener noreferrer" className="contact-link">Telegram</a>
-            </div>
+                // Clear cache and restart test
+                localStorage.removeItem('cogsec_verification_result');
+                localStorage.removeItem('cogsec_last_test_date');
+                setIsReturningUser(false);
+                setCachedResult(null);
+                setCurrentPhase('initialize');
+                setResponses({});
+                setTimeSpent({});
+                setFinalScore(null);
+                setMouseMovements([]);
+              }}
+              className="restart-button"
+            >
+              NEW TEST
+            </button>
+
+            <button 
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onEnterSite();
+              }}
+              className="enter-site-button"
+            >
+              ENTER SITE
+            </button>
           </div>
         </div>
       </div>
@@ -690,11 +649,11 @@ const AIDetectionProtocol = () => {
       {currentPhase === 'initialize' ? (
         <div className="initializing">
           <div className="init-header">
-            <h2>🛡️ COGNITIVE SECURITY PROTOCOL</h2>
-            <div className="version">v3.1.4 - NEURAL PATTERN ANALYSIS</div>
+            <h2>COGNITIVE SECURITY PROTOCOL</h2>
+            <div className="version">v3.1.4 - Neural Pattern Analysis</div>
           </div>
           <div className="init-text">
-            INITIALIZING HUMAN VERIFICATION SEQUENCE...
+            INITIALIZING VERIFICATION SEQUENCE...
           </div>
           <div className="sub-text">
             • Loading neural pattern analyzers...<br/>
@@ -705,7 +664,7 @@ const AIDetectionProtocol = () => {
             <div className="progress-bar">
               <div className="progress-fill"></div>
             </div>
-            <div className="progress-text">Establishing secure connection...</div>
+            <div className="progress-text">Establishing connection...</div>
           </div>
         </div>
       ) : currentPhase === 'cached-result' ? (

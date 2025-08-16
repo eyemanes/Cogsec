@@ -4,9 +4,9 @@ import './Navigation.css';
 const Navigation = ({ activeSection, onSectionChange }) => {
   const navItems = [
     { id: 'homepage', label: 'Homepage' },
-    { id: 'stories', label: 'Stories' },
+    { id: 'reports', label: 'Reports' },
     { id: 'gallery', label: 'Gallery' },
-    { id: 'knowledge', label: 'Knowledge' },
+    { id: 'tools-resources', label: 'Tools & Resources' },
     { id: 'mind-quiz', label: 'Mind Quiz' },
     { id: 'live-chat', label: 'Live Chat' }
   ];

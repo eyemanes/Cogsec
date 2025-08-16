@@ -2,7 +2,7 @@ import React from 'react';
 import './LandingScreen.css';
 import AIDetectionProtocol from './AIDetectionProtocol';
 
-const LandingScreen = () => {
+const LandingScreen = ({ onEnterSite }) => {
   return (
     <div className="landing-screen">
       <div className="logo">
@@ -11,7 +11,7 @@ const LandingScreen = () => {
       <div className="tagline">SECURE YOUR MIND</div>
       
       <div className="analyzer">
-        <AIDetectionProtocol />
+        <AIDetectionProtocol onEnterSite={onEnterSite} />
       </div>
     </div>
   );
