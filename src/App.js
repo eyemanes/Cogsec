@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import LandingScreen from './components/LandingScreen';
 import Navigation from './components/Navigation';
 import StorySection from './components/StorySection';
+import StoriesSection from './components/StoriesSection';
 import GallerySection from './components/GallerySection';
 import KnowledgeSection from './components/KnowledgeSection';
 import MindQuizSection from './components/MindQuizSection';
+import LiveChatSection from './components/LiveChatSection';
 import MatrixBackground from './components/MatrixBackground';
 import './styles/App.css';
 
@@ -60,9 +62,11 @@ function App() {
           
           <div className="content">
             {activeSection === 'homepage' && <StorySection />}
+            {activeSection === 'stories' && <StoriesSection />}
             {activeSection === 'gallery' && <GallerySection />}
             {activeSection === 'knowledge' && <KnowledgeSection />}
             {activeSection === 'mind-quiz' && <MindQuizSection onNavigate={handleSectionChange} />}
+            {activeSection === 'live-chat' && <LiveChatSection />}
           </div>
         </>
       )}

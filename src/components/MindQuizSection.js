@@ -208,52 +208,46 @@ const MindQuizSection = ({ onNavigate }) => {
 
         <div className="quiz-intro">
           <div className="quiz-description glass-card">
-            <h2>🧠 Evaluate Your Mental Defenses</h2>
+            <h2>Evaluate Your Mental Defenses</h2>
             <p className="intro-text">
               In an age where AI systems can analyze your behavior patterns and exploit cognitive biases, 
               understanding your mental vulnerabilities is crucial for digital survival.
             </p>
             
             <div className="assessment-details">
-              <h3>🎯 This Assessment Analyzes:</h3>
+              <h3>This Assessment Analyzes:</h3>
               <div className="assessment-grid">
                 <div className="assessment-item">
-                  <span className="icon">🔍</span>
                   <div>
                     <h4>Critical Thinking Skills</h4>
                     <p>Your ability to analyze information objectively and resist manipulation</p>
                   </div>
                 </div>
                 <div className="assessment-item">
-                  <span className="icon">🧠</span>
                   <div>
                     <h4>Emotional Regulation</h4>
                     <p>How well you control emotional responses to manipulative content</p>
                   </div>
                 </div>
                 <div className="assessment-item">
-                  <span className="icon">🔐</span>
                   <div>
                     <h4>Digital Awareness</h4>
                     <p>Your understanding of AI systems, data collection, and privacy</p>
                   </div>
                 </div>
                 <div className="assessment-item">
-                  <span className="icon">⚡</span>
                   <div>
                     <h4>Decision Making</h4>
                     <p>Your resistance to pressure tactics and hasty judgments</p>
                   </div>
                 </div>
                 <div className="assessment-item">
-                  <span className="icon">🛡️</span>
                   <div>
                     <h4>Information Verification</h4>
                     <p>Your habits around fact-checking and source validation</p>
                   </div>
                 </div>
                 <div className="assessment-item">
-                  <span className="icon">🎭</span>
                   <div>
                     <h4>Media Literacy</h4>
                     <p>Your ability to identify deepfakes and synthetic content</p>
@@ -263,7 +257,7 @@ const MindQuizSection = ({ onNavigate }) => {
             </div>
             
             <div className="quiz-warning">
-              <h4>⚠️ Important Disclaimer</h4>
+              <h4>Important Disclaimer</h4>
               <p>
                 This assessment provides educational insights only and should not be considered 
                 as medical, psychological, or professional security advice. Results are based on 
@@ -290,7 +284,7 @@ const MindQuizSection = ({ onNavigate }) => {
               className="start-quiz-btn"
               onClick={() => setQuizStarted(true)}
             >
-              🚀 BEGIN MIND ASSESSMENT
+              BEGIN MIND ASSESSMENT
             </button>
           </div>
         </div>
@@ -333,7 +327,7 @@ const MindQuizSection = ({ onNavigate }) => {
           </div>
           
           <div className="recommendations glass-card">
-            <h3>🎯 Recommended Action Plan</h3>
+            <h3>Recommended Action Plan</h3>
             <div className="recommendations-list">
               {quizResult.recommendations.map((rec, index) => (
                 <div key={index} className="recommendation-item">
@@ -346,10 +340,10 @@ const MindQuizSection = ({ onNavigate }) => {
           
           <div className="quiz-actions">
             <button className="retake-btn" onClick={resetQuiz}>
-              🔄 RETAKE ASSESSMENT
+              RETAKE ASSESSMENT
             </button>
             <button className="knowledge-btn" onClick={() => onNavigate && onNavigate('knowledge')}>
-              📚 STUDY KNOWLEDGE BASE
+              STUDY KNOWLEDGE BASE
             </button>
           </div>
         </div>
