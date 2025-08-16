@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './Navigation.css';
 
 const Navigation = ({ activeSection, onSectionChange }) => {
-  const [showKnowledgeDropdown, setShowKnowledgeDropdown] = useState(false);
-  const dropdownRef = useRef(null);
+  const [knowledgeOpen, setKnowledgeOpen] = useState(false);
 
   const navItems = [
     { id: 'homepage', label: 'Homepage' },
@@ -18,36 +17,7 @@ const Navigation = ({ activeSection, onSectionChange }) => {
     { id: 'mind-quiz', label: 'Mind Quiz' }
   ];
 
-  const isKnowledgeSection = knowledgeItems.some(item => item.id === activeSection);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowKnowledgeDropdown(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleKnowledgeClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('FORCING DROPDOWN TOGGLE:', !showKnowledgeDropdown);
-    setShowKnowledgeDropdown(!showKnowledgeDropdown);
-  };
-
-  const handleSubMenuClick = (sectionId) => {
-    console.log('Submenu clicked:', sectionId);
-    onSectionChange(sectionId);
-    setShowKnowledgeDropdown(false);
-  };
-
-  console.log('RENDER - showKnowledgeDropdown:', showKnowledgeDropdown);
+  const isKnowledgeActive = knowledgeItems.some(item => item.id === activeSection);
 
   return (
     <nav className="nav-container">
@@ -67,58 +37,35 @@ const Navigation = ({ activeSection, onSectionChange }) => {
             </li>
           ))}
           
-          {/* FORCED Knowledge Dropdown Menu */}
-          <li 
-            ref={dropdownRef}
-            className={`nav-item dropdown ${isKnowledgeSection ? 'active' : ''} ${showKnowledgeDropdown ? 'dropdown-open' : ''}`}
-            onClick={handleKnowledgeClick}
-            style={{ position: 'relative' }}
-          >
-            <span className="dropdown-label">
-              Knowledge
-              <span className={`dropdown-arrow ${showKnowledgeDropdown ? 'open' : ''}`}>▼</span>
-            </span>
-            
-            {/* FORCE SHOW DROPDOWN ALWAYS WHEN STATE IS TRUE */}
-            <ul 
-              className="dropdown-menu"
-              style={{
-                display: showKnowledgeDropdown ? 'block' : 'none',
-                position: 'absolute',
-                top: '100%',
-                left: '0',
-                zIndex: '99999',
-                background: 'rgba(0, 0, 0, 0.95)',
-                border: '2px solid #00ff41',
-                borderRadius: '8px',
-                minWidth: '220px',
-                padding: '8px 0',
-                margin: '5px 0 0 0',
-                listStyle: 'none',
-                boxShadow: '0 8px 25px rgba(0, 255, 65, 0.4)'
+          {/* Simple Knowledge Menu */}
+          <li className={`nav-item knowledge-menu ${isKnowledgeActive ? 'active' : ''}`}>
+            <div 
+              className="knowledge-trigger"
+              onClick={() => {
+                console.log('Knowledge clicked, toggling from:', knowledgeOpen);
+                setKnowledgeOpen(!knowledgeOpen);
               }}
             >
-              {knowledgeItems.map(item => (
-                <li 
-                  key={item.id}
-                  className={`dropdown-item ${activeSection === item.id ? 'active' : ''}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleSubMenuClick(item.id);
-                  }}
-                  style={{
-                    padding: '12px 20px',
-                    color: activeSection === item.id ? '#00ff41' : '#cccccc',
-                    cursor: 'pointer',
-                    borderBottom: '1px solid rgba(0, 255, 65, 0.1)',
-                    transition: 'all 0.3s ease'
-                  }}
-                >
-                  {item.label}
-                </li>
-              ))}
-            </ul>
+              Knowledge ▼
+            </div>
+            
+            {knowledgeOpen && (
+              <div className="knowledge-dropdown">
+                {knowledgeItems.map(item => (
+                  <div
+                    key={item.id}
+                    className={`knowledge-item ${activeSection === item.id ? 'active' : ''}`}
+                    onClick={() => {
+                      console.log('Knowledge item clicked:', item.id);
+                      onSectionChange(item.id);
+                      setKnowledgeOpen(false);
+                    }}
+                  >
+                    {item.label}
+                  </div>
+                ))}
+              </div>
+            )}
           </li>
         </ul>
       </div>
