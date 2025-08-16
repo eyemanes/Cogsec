@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LandingScreen from './components/LandingScreen';
-import Navigation from './components/Navigation';
+import BottomDock from './components/BottomDock';
 import StorySection from './components/StorySection';
 import ReportsSection from './components/ReportsSection';
 import GallerySection from './components/GallerySection';
@@ -31,11 +31,6 @@ function App() {
         <LandingScreen onEnterSite={handleEnterSite} />
       ) : (
         <>
-          <Navigation 
-            activeSection={activeSection} 
-            onSectionChange={handleSectionChange} 
-          />
-          
           <div className="content">
             {activeSection === 'homepage' && <StorySection />}
             {activeSection === 'reports' && <ReportsSection />}
@@ -45,6 +40,11 @@ function App() {
             {activeSection === 'mind-quiz' && <MindQuizSection onNavigate={handleSectionChange} />}
             {activeSection === 'live-chat' && <LiveChatSection />}
           </div>
+          
+          <BottomDock 
+            activeSection={activeSection} 
+            onSectionChange={handleSectionChange} 
+          />
         </>
       )}
     </div>
