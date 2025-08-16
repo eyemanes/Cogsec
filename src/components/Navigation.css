@@ -76,10 +76,25 @@
   text-shadow: 0 0 10px #00ff41;
 }
 
-/* Dropdown Styles */
+/* FORCED DROPDOWN STYLES - OVERRIDE EVERYTHING */
 .nav-item.dropdown {
-  position: relative;
-  z-index: 1000;
+  position: relative !important;
+  z-index: 1000 !important;
+}
+
+.dropdown-menu {
+  /* All important styles are now inline in JS */
+}
+
+.dropdown-item:hover {
+  background: rgba(0, 255, 65, 0.15) !important;
+  color: #00ff41 !important;
+  text-shadow: 0 0 8px #00ff41 !important;
+}
+
+.dropdown-open {
+  background: rgba(0, 255, 65, 0.2) !important;
+  border-color: #00ff41 !important;
 }
 
 .dropdown-label {

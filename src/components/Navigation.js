@@ -34,22 +34,20 @@ const Navigation = ({ activeSection, onSectionChange }) => {
     };
   }, []);
 
-  // Debug effect to log dropdown state changes
-  useEffect(() => {
-    console.log('Dropdown state changed:', showKnowledgeDropdown);
-  }, [showKnowledgeDropdown]);
-
   const handleKnowledgeClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('Knowledge dropdown clicked, current state:', showKnowledgeDropdown);
+    console.log('FORCING DROPDOWN TOGGLE:', !showKnowledgeDropdown);
     setShowKnowledgeDropdown(!showKnowledgeDropdown);
   };
 
   const handleSubMenuClick = (sectionId) => {
+    console.log('Submenu clicked:', sectionId);
     onSectionChange(sectionId);
     setShowKnowledgeDropdown(false);
   };
+
+  console.log('RENDER - showKnowledgeDropdown:', showKnowledgeDropdown);
 
   return (
     <nav className="nav-container">
@@ -69,33 +67,58 @@ const Navigation = ({ activeSection, onSectionChange }) => {
             </li>
           ))}
           
-          {/* Knowledge Dropdown Menu */}
+          {/* FORCED Knowledge Dropdown Menu */}
           <li 
             ref={dropdownRef}
-            className={`nav-item dropdown ${isKnowledgeSection ? 'active' : ''}`}
+            className={`nav-item dropdown ${isKnowledgeSection ? 'active' : ''} ${showKnowledgeDropdown ? 'dropdown-open' : ''}`}
             onClick={handleKnowledgeClick}
+            style={{ position: 'relative' }}
           >
             <span className="dropdown-label">
               Knowledge
               <span className={`dropdown-arrow ${showKnowledgeDropdown ? 'open' : ''}`}>▼</span>
             </span>
             
-            {showKnowledgeDropdown && (
-              <ul className="dropdown-menu">
-                {knowledgeItems.map(item => (
-                  <li 
-                    key={item.id}
-                    className={`dropdown-item ${activeSection === item.id ? 'active' : ''}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleSubMenuClick(item.id);
-                    }}
-                  >
-                    {item.label}
-                  </li>
-                ))}
-              </ul>
-            )}
+            {/* FORCE SHOW DROPDOWN ALWAYS WHEN STATE IS TRUE */}
+            <ul 
+              className="dropdown-menu"
+              style={{
+                display: showKnowledgeDropdown ? 'block' : 'none',
+                position: 'absolute',
+                top: '100%',
+                left: '0',
+                zIndex: '99999',
+                background: 'rgba(0, 0, 0, 0.95)',
+                border: '2px solid #00ff41',
+                borderRadius: '8px',
+                minWidth: '220px',
+                padding: '8px 0',
+                margin: '5px 0 0 0',
+                listStyle: 'none',
+                boxShadow: '0 8px 25px rgba(0, 255, 65, 0.4)'
+              }}
+            >
+              {knowledgeItems.map(item => (
+                <li 
+                  key={item.id}
+                  className={`dropdown-item ${activeSection === item.id ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSubMenuClick(item.id);
+                  }}
+                  style={{
+                    padding: '12px 20px',
+                    color: activeSection === item.id ? '#00ff41' : '#cccccc',
+                    cursor: 'pointer',
+                    borderBottom: '1px solid rgba(0, 255, 65, 0.1)',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  {item.label}
+                </li>
+              ))}
+            </ul>
           </li>
         </ul>
       </div>
