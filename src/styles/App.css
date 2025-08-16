@@ -106,15 +106,67 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .App {
+    padding-top: 90px; /* Adjust for taller mobile nav */
+  }
+  
   .content {
-    padding: 1rem;
+    padding: 0.8rem;
+  }
+  
+  .section {
+    padding: 1.5rem 0;
   }
   
   .section-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
   }
   
   .glass-card {
-    padding: 1.5rem;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .glass-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .glass-card p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .App {
+    padding-top: 85px;
+  }
+  
+  .content {
+    padding: 0.5rem;
+  }
+  
+  .section {
+    padding: 1rem 0;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  
+  .glass-card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .glass-card h3 {
+    font-size: 1rem;
+  }
+  
+  .glass-card p {
+    font-size: 0.85rem;
   }
 }

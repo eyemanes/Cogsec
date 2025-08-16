@@ -100,7 +100,7 @@ const StorySection = () => {
               )}
             </div>
           </div>
-        ))
+        ))}
       </div>
       
       <div className="story-footer glass-card">
